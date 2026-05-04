@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>جدول احترافي كامل</title>
+
+<style>
+body {
+    font-family: Arial;
+    direction: rtl;
+    text-align: center;
+    background: #f5f5f5;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    width: 90%;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* تثبيت عمود الترقيم */
+th:first-child,
+td:first-child {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+th {
+    background: #000;
+    color: white;
+}
+
+button {
+    margin: 2px;
+    padding: 6px 10px;
+    border: none;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* الطباعة */
+@media print {
+    button, input, h2 {
+        display: none;
+    }
+
+    /* إخفاء عمود الإجراءات */
+    th:nth-child(2),
+    td:nth-child(2) {
+        display: none;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h2>📊 جدول احترافي مع ترقيم</h2>
+
+<div>
+    <button onclick="addColumn()">➕ عمود</button>
+    <button onclick="deleteColumn()">➖ عمود</button>
+    <br><br>
+    <button onclick="downloadJSON()">💾 تحميل</button>
+    <button onclick="document.getElementById('fileInput').click()">📂 استرجاع</button>
+    <button onclick="window.print()">🖨️ طباعة</button>
+    <button onclick="clearAllData()">🗑️ حذف البيانات</button>
+</div>
+
+<input type="file" id="fileInput" accept=".json" style="display:none" onchange="uploadJSON(event)">
+
+<table id="myTable"></table>
+
+<script>
+
+// إنشاء الهيدر الأساسي
+function createHeader() {
+    return `
+    <tr>
+        <th>#</th>
+        <th>إجراءات</th>
+        <th contenteditable="true">الصنف</th>
+        <th contenteditable="true">العدد</th>
+        <th contenteditable="true">اللون</th>
+        <th contenteditable="true">ملاحظات</th>
+    </tr>`;
+}
+
+// تحديث الترقيم
+function updateIndex() {
+    let table = document.getElementById("myTable");
+    for (let i = 1; i < table.rows.length; i++) {
+        table.rows[i].cells[0].innerText = i;
+    }
+}
+
+// أزرار الصف
+function addRowButtons(row) {
+    row.cells[1].innerHTML = `
+        <button onclick="addRowBelow(this)">➕</button>
+        <button onclick="deleteThisRow(this)">❌</button>
+    `;
+}
+
+// إضافة صف
+function addRowBelow(btn) {
+    let row = btn.parentElement.parentElement;
+    let table = document.getElementById("myTable");
+    let newRow = table.insertRow(row.rowIndex + 1);
+
+    for (let i = 0; i < table.rows[0].cells.length; i++) {
+        let cell = newRow.insertCell();
+        if (i >= 2) cell.contentEditable = true;
+    }
+
+    addRowButtons(newRow);
+    updateIndex();
+    autoSave();
+}
+
+// حذف صف
+function deleteThisRow(btn) {
+    let table = document.getElementById("myTable");
+    if (table.rows.length > 2) {
+        let row = btn.parentElement.parentElement;
+        table.deleteRow(row.rowIndex);
+        updateIndex();
+        autoSave();
+    }
+}
+
+// أعمدة
+function addColumn() {
+    let table = document.getElementById("myTable");
+    for (let i = 0; i < table.rows.length; i++) {
+        let cell = table.rows[i].insertCell();
+        cell.contentEditable = true;
+        if (i === 0) cell.innerText = "عمود جديد";
+    }
+}
+
+function deleteColumn() {
+    let table = document.getElementById("myTable");
+    if (table.rows[0].cells.length > 3) {
+        for (let i = 0; i < table.rows.length; i++) {
+            table.rows[i].deleteCell(-1);
+        }
+    }
+}
+
+// استخراج البيانات (بدون الرقم والإجراءات)
+function getTableData() {
+    let table = document.getElementById("myTable");
+    let data = [];
+
+    for (let i = 0; i < table.rows.length; i++) {
+        let row = [];
+        for (let j = 2; j < table.rows[i].cells.length; j++) {
+            row.push(table.rows[i].cells[j].innerText);
+        }
+        data.push(row);
+    }
+    return data;
+}
+
+// بناء الجدول (✔️ الإصلاح هنا)
+function buildTable(data) {
+    let table = document.getElementById("myTable");
+
+    // إعادة بناء الهيدر دائماً
+    table.innerHTML = createHeader();
+
+    data.forEach((rowData, i) => {
+        let row = table.insertRow();
+
+        row.insertCell(); // رقم
+        row.insertCell(); // إجراءات
+
+        rowData.forEach((cellData) => {
+            let cell = row.insertCell();
+            cell.contentEditable = true;
+            cell.innerText = cellData;
+        });
+
+        addRowButtons(row);
+    });
+
+    updateIndex();
+}
+
+// تحميل ملف
+function downloadJSON() {
+    let data = getTableData();
+    let blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "table-data.json";
+    a.click();
+}
+
+// استرجاع
+function uploadJSON(e) {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        buildTable(JSON.parse(e.target.result));
+        autoSave();
+    };
+    reader.readAsText(file);
+}
+
+// حفظ
+function autoSave() {
+    localStorage.setItem("tableData", JSON.stringify(getTableData()));
+}
+
+function autoLoad() {
+    let data = JSON.parse(localStorage.getItem("tableData"));
+    if (data) {
+        buildTable(data);
+    } else {
+        // أول تشغيل
+        let table = document.getElementById("myTable");
+        table.innerHTML = createHeader();
+
+        let row = table.insertRow();
+        row.insertCell();
+        row.insertCell();
+
+        for (let i = 0; i < 4; i++) {
+            let cell = row.insertCell();
+            cell.contentEditable = true;
+        }
+
+        addRowButtons(row);
+        updateIndex();
+    }
+}
+
+// حذف
+function clearAllData() {
+    localStorage.removeItem("tableData");
+    location.reload();
+}
+
+// حفظ تلقائي
+let t;
+document.addEventListener("input", () => {
+    clearTimeout(t);
+    t = setTimeout(autoSave, 800);
+});
+
+// تشغيل
+window.onload = function() {
+    autoLoad();
+};
+</script>
+
+</body>
+</html>
