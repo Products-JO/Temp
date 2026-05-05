@@ -32,39 +32,133 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 /* ══════════════════════
 LOGIN PAGE
 ══════════════════════ */
-#loginPage{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
-.login-box{
-background:rgba(7,30,56,.8);
+/* ══════════════════════
+LANDING / LOGIN PAGE
+══════════════════════ */
+#loginPage{
+display:flex;align-items:center;justify-content:center;
+min-height:100vh;padding:24px;
+flex-direction:column;gap:28px;
+}
+
+/* big hero label */
+.landing-logo{
+text-align:center;animation:boxIn .5s cubic-bezier(.34,1.56,.64,1);
+}
+.landing-logo .land-icon{
+font-size:64px;
+filter:drop-shadow(0 0 24px rgba(6,182,212,.7));
+display:block;margin-bottom:14px;
+animation:float 3s ease-in-out infinite;
+}
+.landing-logo h1{font-size:clamp(22px,4vw,32px);font-weight:900;margin-bottom:6px}
+.landing-logo p{font-size:14px;color:var(–gray)}
+
+/* two cards side by side */
+.landing-cards{
+display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
+animation:boxIn .55s .1s cubic-bezier(.34,1.56,.64,1) both;
+width:100%;max-width:820px;
+}
+
+/* ── CATALOG CARD (big glowing) ── */
+.catalog-card{
+flex:1;min-width:300px;max-width:420px;
+position:relative;overflow:hidden;
+background:linear-gradient(145deg,rgba(6,182,212,.18),rgba(14,165,233,.1));
+border:1.5px solid rgba(14,165,233,.4);
+border-radius:28px;
+padding:44px 32px 40px;
+text-align:center;cursor:pointer;
+transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+box-shadow:
+0 0 0 1px rgba(14,165,233,.12),
+0 20px 50px rgba(14,165,233,.2),
+0 0 80px rgba(6,182,212,.1);
+}
+/* animated outer glow ring */
+.catalog-card::before{
+content:’’;position:absolute;inset:-3px;border-radius:30px;
+background:linear-gradient(135deg,var(–cyan),var(–blue),var(–cyan));
+background-size:300% 300%;
+animation:gradShift 3s ease infinite;
+z-index:-1;filter:blur(10px);opacity:.6;
+}
+/* sweep shine */
+.catalog-card::after{
+content:’’;position:absolute;top:-50%;left:-70%;
+width:50%;height:200%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);
+transform:skewX(-18deg);
+animation:shine 3.5s ease-in-out infinite;
+}
+@keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes shine{0%,100%{left:-70%}55%{left:130%}}
+.catalog-card:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:
+0 0 0 1px rgba(14,165,233,.3),
+0 30px 70px rgba(14,165,233,.35),
+0 0 120px rgba(6,182,212,.2);
+}
+.cc-icon{font-size:56px;display:block;margin-bottom:18px;
+filter:drop-shadow(0 0 16px rgba(14,165,233,.8));
+animation:float 2.8s ease-in-out infinite;}
+.cc-title{font-size:24px;font-weight:900;margin-bottom:10px;
+background:linear-gradient(135deg,#fff 40%,var(–glow));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cc-sub{font-size:13px;color:rgba(148,163,184,.85);line-height:1.7;margin-bottom:26px}
+.cc-btn{
+display:inline-flex;align-items:center;gap:10px;
+background:linear-gradient(135deg,var(–blue),var(–cyan));
+background-size:200% 200%;animation:gradShift 3s ease infinite;
+border:none;border-radius:16px;padding:16px 36px;
+color:#fff;font-size:17px;font-family:‘Cairo’,sans-serif;font-weight:900;
+cursor:pointer;width:100%;justify-content:center;
+box-shadow:0 8px 28px rgba(14,165,233,.45);
+transition:transform .2s,box-shadow .2s;letter-spacing:.3px;
+}
+.cc-btn:hover{transform:scale(1.03);box-shadow:0 12px 38px rgba(14,165,233,.65)}
+.cc-badge{
+display:inline-block;margin-bottom:18px;
+background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.3);
+border-radius:30px;padding:5px 18px;font-size:11px;color:var(–glow);letter-spacing:1px;
+}
+
+/* ── ADMIN CARD (smaller, subtle) ── */
+.admin-card{
+flex:1;min-width:280px;max-width:360px;
+background:rgba(7,30,56,.7);
 border:1px solid var(–border);
 border-radius:28px;
-padding:50px 44px;
-width:100%;max-width:420px;
+padding:36px 28px 32px;
 text-align:center;
 backdrop-filter:blur(20px);
-box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(14,165,233,.08);
-animation:boxIn .5s cubic-bezier(.34,1.56,.64,1);
+box-shadow:0 20px 50px rgba(0,0,0,.4);
+animation:boxIn .6s .15s cubic-bezier(.34,1.56,.64,1) both;
 }
-@keyframes boxIn{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-.login-icon{font-size:54px;margin-bottom:20px;filter:drop-shadow(0 0 20px rgba(6,182,212,.6))}
-.login-box h2{font-size:22px;font-weight:900;margin-bottom:6px}
-.login-box p{font-size:13px;color:var(–gray);margin-bottom:30px}
+.admin-card h3{font-size:17px;font-weight:800;margin-bottom:6px}
+.admin-card p{font-size:12px;color:var(–gray);margin-bottom:24px}
+.admin-icon{font-size:36px;margin-bottom:14px;display:block}
+@keyframes boxIn{from{transform:translateY(28px);opacity:0}to{transform:translateY(0);opacity:1}}
+
 .login-input{
 width:100%;background:rgba(14,165,233,.07);border:1px solid var(–border);
-border-radius:14px;padding:14px 18px;color:var(–white);font-size:15px;
+border-radius:12px;padding:13px 16px;color:var(–white);font-size:14px;
 font-family:‘Cairo’,sans-serif;outline:none;text-align:center;
-margin-bottom:14px;transition:all .3s;
+margin-bottom:12px;transition:all .3s;
 }
 .login-input:focus{border-color:var(–blue);box-shadow:0 0 0 3px rgba(14,165,233,.15)}
 .login-btn{
-width:100%;background:linear-gradient(135deg,var(–blue),var(–cyan));
-border:none;border-radius:14px;padding:15px;color:#fff;
-font-size:16px;font-family:‘Cairo’,sans-serif;font-weight:700;
-cursor:pointer;transition:all .3s;box-shadow:0 8px 25px rgba(14,165,233,.35);
+width:100%;background:rgba(14,165,233,.15);
+border:1px solid rgba(14,165,233,.3);
+border-radius:12px;padding:13px;color:var(–glow);
+font-size:14px;font-family:‘Cairo’,sans-serif;font-weight:700;
+cursor:pointer;transition:all .3s;
 }
-.login-btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(14,165,233,.5)}
-.login-err{color:#f87171;font-size:13px;margin-top:10px;min-height:18px}
-.client-link{margin-top:24px;font-size:13px;color:var(–gray)}
-.client-link a{color:var(–glow);cursor:pointer;text-decoration:underline}
+.login-btn:hover{background:rgba(14,165,233,.25);transform:translateY(-1px)}
+.login-err{color:#f87171;font-size:12px;margin-top:8px;min-height:16px}
+.client-link{display:none}
 
 /* ══════════════════════
 SHARED HEADER
@@ -276,6 +370,43 @@ color:var(–gray);cursor:pointer;transition:all .2s;font-family:‘Cairo’,san
 .cat-pill.active,.cat-pill:hover{
 background:rgba(14,165,233,.18);border-color:var(–blue);color:var(–glow);
 }
+
+/* ── GLOWING CATALOG BUTTON ── */
+.view-catalog-btn{
+position:relative;overflow:hidden;
+display:inline-flex;align-items:center;gap:9px;
+background:linear-gradient(135deg,#0ea5e9,#06b6d4,#0ea5e9);
+background-size:200% 200%;
+animation:gradShift 3s ease infinite;
+border:none;border-radius:14px;
+padding:11px 24px;
+color:#fff;font-size:14px;font-family:‘Cairo’,sans-serif;font-weight:800;
+cursor:pointer;
+box-shadow:0 0 22px rgba(14,165,233,.55),0 0 50px rgba(6,182,212,.25),inset 0 1px 0 rgba(255,255,255,.2);
+transition:transform .25s,box-shadow .25s;
+letter-spacing:.3px;
+}
+.view-catalog-btn::before{
+content:’’;position:absolute;inset:-2px;
+background:linear-gradient(135deg,#38bdf8,#0ea5e9,#06b6d4,#38bdf8);
+background-size:300% 300%;
+animation:gradShift 2.5s ease infinite;
+border-radius:16px;z-index:-1;filter:blur(8px);opacity:.7;
+}
+.view-catalog-btn::after{
+content:’’;
+position:absolute;top:-50%;left:-60%;width:40%;height:200%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+transform:skewX(-20deg);
+animation:shine 3s ease-in-out infinite;
+}
+@keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes shine{0%,100%{left:-60%}50%{left:120%}}
+.view-catalog-btn:hover{
+transform:translateY(-2px) scale(1.04);
+box-shadow:0 0 32px rgba(14,165,233,.8),0 0 70px rgba(6,182,212,.4),inset 0 1px 0 rgba(255,255,255,.2);
+}
+.view-catalog-btn:active{transform:scale(.97)}
 
 /* ══════════════════════
 CLIENT PAGE
@@ -494,16 +625,38 @@ backdrop-filter:blur(14px);display:flex;align-items:center;gap:9px;
 ══════════════════════════════════ -->
 
 <div id="loginPage" class="page active">
-  <div class="login-box">
-    <div class="login-icon">🏊</div>
-    <h2>مؤسسة الغدير</h2>
-    <p>معدات برك السباحة الاحترافية</p>
-    <input class="login-input" id="loginPass" type="password" placeholder="كلمة مرور الأدمن" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" onclick="doLogin()">🔑 دخول لوحة التحكم</button>
-    <div class="login-err" id="loginErr"></div>
-    <div class="client-link">
-      أو <a onclick="showPage('clientPage')">تصفّح الكتالوج للعملاء ←</a>
-    </div>
+
+  <div class="landing-logo">
+    <span class="land-icon">🏊</span>
+    <h1>مؤسسة الغدير</h1>
+    <p>للتجهيزات والتوريدات — معدات برك السباحة</p>
+  </div>
+
+  <div class="landing-cards">
+
+```
+<!-- BIG GLOWING CATALOG BUTTON -->
+<div class="catalog-card" onclick="goToClientCatalog()">
+  <span class="cc-badge">🏷️ متاح للجميع</span>
+  <span class="cc-icon">📸</span>
+  <div class="cc-title">تصفّح الكتالوج</div>
+  <div class="cc-sub">شاهد جميع معدات برك السباحة<br>بالصور عالية الجودة</div>
+  <button class="cc-btn">🔍 عرض الكتالوج الآن ←</button>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="admin-card">
+  <span class="admin-icon">⚙️</span>
+  <h3>دخول الأدمن</h3>
+  <p>لرفع وإدارة الصور</p>
+  <input class="login-input" id="loginPass" type="password"
+    placeholder="كلمة المرور"
+    onkeydown="if(event.key==='Enter')doLogin()">
+  <button class="login-btn" onclick="doLogin()">🔑 دخول لوحة التحكم</button>
+  <div class="login-err" id="loginErr"></div>
+</div>
+```
+
   </div>
 </div>
 
@@ -522,7 +675,7 @@ backdrop-filter:blur(14px);display:flex;align-items:center;gap:9px;
     </div>
     <div class="header-actions">
       <div class="hdr-badge"><span class="pulse"></span><span id="adminImgCount">0 صورة</span></div>
-      <button class="icon-btn" onclick="showPage('clientPage')">👁 عرض الكتالوج</button>
+      <button class="view-catalog-btn" id="vcBtn" onclick="goToClientCatalog()">👁‍🗨 تصفّح الكتالوج</button>
       <button class="logout-btn" onclick="logout()">خروج ↩</button>
     </div>
   </header>
@@ -719,6 +872,15 @@ function doLogin() {
 function logout() {
   document.getElementById('loginPass').value = '';
   showPage('loginPage');
+}
+
+function goToClientCatalog() {
+  showPage('clientPage');
+  // Small delay so the page renders before scrolling
+  setTimeout(() => {
+    const anchor = document.getElementById('catalogAnchor');
+    if (anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+  }, 80);
 }
 
 function showPage(id) {
