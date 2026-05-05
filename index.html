@@ -298,15 +298,15 @@ border-radius:30px;padding:6px 20px;font-size:12px;color:var(–cyan);letter-spa
 
 /* CLIENT CONTROLS */
 .c-controls{
-max-width:1100px;margin:0 auto 30px;padding:0 20px;
+max-width:1400px;margin:0 auto 30px;padding:0 28px;
 display:flex;align-items:center;gap:12px;flex-wrap:wrap;
 position:relative;z-index:1;
 }
 .c-search{
 flex:1;min-width:200px;
 background:var(–surface);border:1px solid var(–border);
-border-radius:12px;padding:12px 18px;color:var(–white);
-font-size:14px;font-family:‘Cairo’,sans-serif;outline:none;transition:all .3s;
+border-radius:12px;padding:14px 20px;color:var(–white);
+font-size:15px;font-family:‘Cairo’,sans-serif;outline:none;transition:all .3s;
 }
 .c-search::placeholder{color:var(–gray)}
 .c-search:focus{border-color:var(–blue);box-shadow:0 0 0 3px rgba(14,165,233,.12)}
@@ -315,61 +315,65 @@ display:flex;background:var(–surface);border:1px solid var(–border);
 border-radius:12px;overflow:hidden;
 }
 .vbtn{
-padding:11px 15px;background:none;border:none;
-color:var(–gray);cursor:pointer;font-size:16px;transition:all .2s;
+padding:12px 18px;background:none;border:none;
+color:var(–gray);cursor:pointer;font-size:18px;transition:all .2s;
 }
 .vbtn.active{background:rgba(14,165,233,.2);color:var(–blue)}
 
 /* CLIENT GALLERY */
-.client-gallery{max-width:1100px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
+.client-gallery{max-width:1400px;margin:0 auto;padding:0 28px 80px;position:relative;z-index:1}
 .client-grid{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-gap:22px;
+grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+gap:28px;
 }
-.client-grid.list-view{grid-template-columns:1fr;gap:14px}
+.client-grid.list-view{grid-template-columns:1fr;gap:18px}
 
 /* CLIENT CARD */
 .c-card{
-background:rgba(7,30,56,.6);border:1px solid var(–border);
-border-radius:22px;overflow:hidden;cursor:pointer;
+background:rgba(7,30,56,.65);border:1px solid var(–border);
+border-radius:26px;overflow:hidden;cursor:pointer;
 transition:all .35s cubic-bezier(.34,1.56,.64,1);
 animation:cardIn .4s ease both;opacity:0;transform:translateY(18px);
-backdrop-filter:blur(8px);
+backdrop-filter:blur(10px);
 }
 .c-card:hover{
-transform:translateY(-6px);
-border-color:rgba(14,165,233,.5);
-box-shadow:0 24px 60px rgba(14,165,233,.2),0 0 0 1px rgba(14,165,233,.08);
+transform:translateY(-8px) scale(1.01);
+border-color:rgba(14,165,233,.55);
+box-shadow:0 30px 70px rgba(14,165,233,.22),0 0 0 1px rgba(14,165,233,.1);
 }
 .c-thumb{position:relative;aspect-ratio:4/3;overflow:hidden}
-.client-grid.list-view .c-thumb{aspect-ratio:16/7}
+.client-grid.list-view .c-thumb{aspect-ratio:16/6}
 .c-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;display:block}
 .c-card:hover .c-thumb img{transform:scale(1.08)}
 .c-thumb-overlay{
 position:absolute;inset:0;
-background:linear-gradient(to top,rgba(4,17,31,.9) 0%,rgba(4,17,31,.1) 50%,transparent 100%);
+background:linear-gradient(to top,rgba(4,17,31,.88) 0%,rgba(4,17,31,.05) 45%,transparent 100%);
 }
 .c-thumb-badge{
-position:absolute;top:12px;right:12px;
-background:rgba(4,17,31,.7);border:1px solid var(–border);
-border-radius:8px;padding:4px 12px;font-size:11px;color:var(–glow);
-backdrop-filter:blur(10px);
+position:absolute;top:14px;right:14px;
+background:rgba(4,17,31,.75);border:1px solid var(–border);
+border-radius:10px;padding:5px 14px;font-size:12px;color:var(–glow);
+backdrop-filter:blur(10px);font-weight:600;
 }
 .zoom-icon{
 position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);
-font-size:36px;transition:all .3s;opacity:0;
+font-size:44px;transition:all .3s;opacity:0;
+filter:drop-shadow(0 0 12px rgba(14,165,233,.8));
 }
 .c-card:hover .zoom-icon{transform:translate(-50%,-50%) scale(1);opacity:1}
-.c-info{padding:16px 18px}
-.c-name{font-size:14px;font-weight:700;margin-bottom:6px}
-.c-cat{font-size:11px;color:var(–cyan);display:flex;align-items:center;gap:5px}
+.c-info{padding:20px 22px}
+.c-name{font-size:17px;font-weight:800;margin-bottom:8px;line-height:1.4}
+.c-cat{font-size:13px;color:var(–cyan);display:flex;align-items:center;gap:6px}
 
 /* NO IMAGES CLIENT */
 .no-images-msg{
 text-align:center;padding:100px 20px;color:var(–gray);
 }
 .no-images-msg .ni-icon{font-size:64px;margin-bottom:20px;opacity:.3;display:block}
+
+/* SCROLL ANCHOR */
+#catalogAnchor{scroll-margin-top:90px}
 
 /* ══════════════════════
 LIGHTBOX
@@ -585,8 +589,17 @@ backdrop-filter:blur(14px);display:flex;align-items:center;gap:9px;
     <span class="subtitle">🏊 معدات برك السباحة الاحترافية</span>
     <div class="wave-text">كتالوج معداتنا</div>
     <p>تصفّح مجموعتنا الكاملة من معدات برك السباحة عالية الجودة</p>
+    <div style="margin-top:32px">
+      <button onclick="document.getElementById('catalogAnchor').scrollIntoView({behavior:'smooth'})"
+        style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;border-radius:16px;padding:16px 36px;color:#fff;font-size:16px;font-family:'Cairo',sans-serif;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(14,165,233,.4);transition:all .3s"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 40px rgba(14,165,233,.55)'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 10px 30px rgba(14,165,233,.4)'">
+        تصفّح الكتالوج ↓
+      </button>
+    </div>
   </section>
 
+  <div id="catalogAnchor" style="scroll-margin-top:90px"></div>
   <div class="c-controls">
     <input class="c-search" id="cSearch" placeholder="🔍 ابحث في الكتالوج..." oninput="renderClient()">
     <div class="view-toggle">
@@ -595,7 +608,7 @@ backdrop-filter:blur(14px);display:flex;align-items:center;gap:9px;
     </div>
   </div>
 
-  <div class="cat-bar" id="clientCatBar"></div>
+  <div class="cat-bar" id="clientCatBar" style="max-width:1400px;padding:0 28px;margin-bottom:28px"></div>
 
   <div class="client-gallery">
     <div class="client-grid" id="clientGrid"></div>
