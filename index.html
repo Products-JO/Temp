@@ -1,275 +1,972 @@
 <!DOCTYPE html>
-<html lang="ar">
+
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>جدول احترافي كامل</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>معرض معدات برك السباحة — مؤسسة الغدير</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–blue-deep: #0a1628;
+–blue-mid: #0d2144;
+–blue-bright: #0ea5e9;
+–blue-glow: #38bdf8;
+–cyan: #06b6d4;
+–gold: #f59e0b;
+–white: #f0f9ff;
+–gray: #94a3b8;
+–surface: rgba(14, 165, 233, 0.07);
+–border: rgba(14, 165, 233, 0.2);
+}
+
+html { scroll-behavior: smooth; }
+
 body {
-    font-family: Arial;
-    direction: rtl;
-    text-align: center;
-    background: #f5f5f5;
+font-family: ‘Cairo’, sans-serif;
+background: var(–blue-deep);
+color: var(–white);
+min-height: 100vh;
+overflow-x: hidden;
 }
 
-table {
-    border-collapse: collapse;
-    margin: 20px auto;
-    width: 90%;
-    background: white;
+/* Animated background */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background:
+radial-gradient(ellipse 80% 50% at 20% 10%, rgba(6,182,212,0.12) 0%, transparent 60%),
+radial-gradient(ellipse 60% 40% at 80% 80%, rgba(14,165,233,0.1) 0%, transparent 60%),
+radial-gradient(ellipse 40% 30% at 50% 50%, rgba(56,189,248,0.05) 0%, transparent 70%);
+pointer-events: none;
+z-index: 0;
 }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
+/* Ripple animation */
+body::after {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image:
+repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(14,165,233,0.03) 60px, rgba(14,165,233,0.03) 61px),
+repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(14,165,233,0.03) 60px, rgba(14,165,233,0.03) 61px);
+pointer-events: none;
+z-index: 0;
 }
 
-/* تثبيت عمود الترقيم */
-th:first-child,
-td:first-child {
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    text-align: center;
-    font-weight: bold;
+/* HEADER */
+header {
+position: relative;
+z-index: 10;
+padding: 28px 40px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+border-bottom: 1px solid var(–border);
+backdrop-filter: blur(20px);
+background: rgba(10, 22, 40, 0.7);
+position: sticky;
+top: 0;
 }
 
-th {
-    background: #000;
-    color: white;
+.logo-area {
+display: flex;
+align-items: center;
+gap: 16px;
 }
 
-button {
-    margin: 2px;
-    padding: 6px 10px;
-    border: none;
-    background: #333;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
+.logo-icon {
+width: 48px;
+height: 48px;
+background: linear-gradient(135deg, var(–cyan), var(–blue-bright));
+border-radius: 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 22px;
+box-shadow: 0 0 20px rgba(6,182,212,0.4);
 }
 
-/* الطباعة */
-@media print {
-    button, input, h2 {
-        display: none;
-    }
+.logo-text { line-height: 1.2; }
+.logo-text h1 { font-size: 16px; font-weight: 700; color: var(–white); }
+.logo-text p { font-size: 11px; color: var(–gray); }
 
-    /* إخفاء عمود الإجراءات */
-    th:nth-child(2),
-    td:nth-child(2) {
-        display: none;
-    }
+.header-badge {
+background: linear-gradient(135deg, rgba(14,165,233,0.2), rgba(6,182,212,0.1));
+border: 1px solid var(–border);
+border-radius: 30px;
+padding: 8px 20px;
+font-size: 13px;
+color: var(–blue-glow);
+display: flex;
+align-items: center;
+gap: 8px;
+}
 
-    * {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
+.pulse-dot {
+width: 8px; height: 8px;
+background: var(–cyan);
+border-radius: 50%;
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* HERO */
+.hero {
+position: relative;
+z-index: 1;
+text-align: center;
+padding: 70px 40px 50px;
+}
+
+.hero-tag {
+display: inline-block;
+background: rgba(14,165,233,0.12);
+border: 1px solid rgba(14,165,233,0.3);
+border-radius: 30px;
+padding: 6px 20px;
+font-size: 13px;
+color: var(–cyan);
+margin-bottom: 24px;
+letter-spacing: 1px;
+}
+
+.hero h2 {
+font-size: clamp(32px, 5vw, 52px);
+font-weight: 900;
+line-height: 1.15;
+margin-bottom: 16px;
+background: linear-gradient(135deg, var(–white) 40%, var(–blue-glow));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.hero p {
+font-size: 16px;
+color: var(–gray);
+max-width: 500px;
+margin: 0 auto 40px;
+line-height: 1.8;
+}
+
+/* UPLOAD ZONE */
+.upload-zone {
+position: relative;
+z-index: 1;
+max-width: 700px;
+margin: 0 auto 60px;
+padding: 0 20px;
+}
+
+.drop-area {
+background: var(–surface);
+border: 2px dashed var(–border);
+border-radius: 24px;
+padding: 50px 30px;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+.drop-area::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: radial-gradient(circle at 50% 50%, rgba(14,165,233,0.08), transparent 70%);
+opacity: 0;
+transition: opacity 0.3s;
+}
+
+.drop-area:hover::before,
+.drop-area.drag-over::before { opacity: 1; }
+
+.drop-area:hover,
+.drop-area.drag-over {
+border-color: var(–blue-bright);
+background: rgba(14,165,233,0.1);
+transform: translateY(-2px);
+box-shadow: 0 20px 50px rgba(14,165,233,0.15);
+}
+
+.drop-icon {
+font-size: 52px;
+margin-bottom: 16px;
+display: block;
+filter: drop-shadow(0 0 15px rgba(6,182,212,0.5));
+animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-8px); }
+}
+
+.drop-area h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.drop-area p { color: var(–gray); font-size: 14px; margin-bottom: 24px; }
+
+.upload-btn {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+background: linear-gradient(135deg, var(–blue-bright), var(–cyan));
+color: #fff;
+border: none;
+border-radius: 14px;
+padding: 14px 32px;
+font-size: 15px;
+font-family: ‘Cairo’, sans-serif;
+font-weight: 700;
+cursor: pointer;
+transition: all 0.3s;
+box-shadow: 0 8px 25px rgba(14,165,233,0.35);
+}
+
+.upload-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 35px rgba(14,165,233,0.5);
+}
+
+#fileInput { display: none; }
+
+/* STATS BAR */
+.stats-bar {
+position: relative;
+z-index: 1;
+max-width: 900px;
+margin: 0 auto 50px;
+padding: 0 20px;
+display: flex;
+gap: 16px;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.stat-item {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 16px;
+padding: 16px 28px;
+text-align: center;
+min-width: 140px;
+transition: all 0.3s;
+}
+
+.stat-item:hover {
+border-color: var(–blue-bright);
+transform: translateY(-2px);
+}
+
+.stat-num {
+font-size: 28px;
+font-weight: 900;
+color: var(–blue-glow);
+display: block;
+}
+
+.stat-label { font-size: 12px; color: var(–gray); }
+
+/* CONTROLS */
+.controls {
+position: relative;
+z-index: 1;
+max-width: 1200px;
+margin: 0 auto 30px;
+padding: 0 20px;
+display: flex;
+align-items: center;
+gap: 16px;
+flex-wrap: wrap;
+}
+
+.search-box {
+flex: 1;
+min-width: 200px;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 12px 18px;
+color: var(–white);
+font-size: 14px;
+font-family: ‘Cairo’, sans-serif;
+outline: none;
+transition: all 0.3s;
+}
+
+.search-box::placeholder { color: var(–gray); }
+
+.search-box:focus {
+border-color: var(–blue-bright);
+box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+}
+
+.view-toggle {
+display: flex;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 12px;
+overflow: hidden;
+}
+
+.view-btn {
+padding: 12px 16px;
+background: none;
+border: none;
+color: var(–gray);
+cursor: pointer;
+font-size: 16px;
+transition: all 0.2s;
+}
+
+.view-btn.active {
+background: rgba(14,165,233,0.2);
+color: var(–blue-bright);
+}
+
+.sort-select {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 12px 16px;
+color: var(–white);
+font-family: ‘Cairo’, sans-serif;
+font-size: 13px;
+cursor: pointer;
+outline: none;
+}
+
+.sort-select option { background: var(–blue-mid); }
+
+.clear-btn {
+background: rgba(239, 68, 68, 0.1);
+border: 1px solid rgba(239, 68, 68, 0.3);
+border-radius: 12px;
+padding: 12px 20px;
+color: #f87171;
+font-family: ‘Cairo’, sans-serif;
+font-size: 13px;
+cursor: pointer;
+transition: all 0.3s;
+display: none;
+}
+
+.clear-btn:hover { background: rgba(239, 68, 68, 0.2); }
+
+/* GALLERY */
+.gallery-container {
+position: relative;
+z-index: 1;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px 80px;
+}
+
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+gap: 20px;
+transition: all 0.4s;
+}
+
+.gallery-grid.list-view {
+grid-template-columns: 1fr;
+gap: 12px;
+}
+
+/* IMAGE CARD */
+.img-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 20px;
+overflow: hidden;
+cursor: pointer;
+transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+position: relative;
+animation: cardIn 0.4s ease forwards;
+opacity: 0;
+transform: translateY(20px);
+}
+
+@keyframes cardIn {
+to { opacity: 1; transform: translateY(0); }
+}
+
+.img-card:hover {
+transform: translateY(-6px) scale(1.01);
+border-color: rgba(14,165,233,0.5);
+box-shadow: 0 20px 50px rgba(14,165,233,0.2), 0 0 0 1px rgba(14,165,233,0.1);
+}
+
+.img-card .thumb-wrap {
+position: relative;
+aspect-ratio: 4/3;
+overflow: hidden;
+background: rgba(14,165,233,0.05);
+}
+
+.gallery-grid.list-view .thumb-wrap {
+aspect-ratio: 16/6;
+}
+
+.img-card img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.5s ease;
+display: block;
+}
+
+.img-card:hover img { transform: scale(1.07); }
+
+.img-overlay {
+position: absolute;
+inset: 0;
+background: linear-gradient(to top, rgba(10,22,40,0.95) 0%, transparent 50%);
+opacity: 0;
+transition: opacity 0.3s;
+display: flex;
+align-items: flex-end;
+padding: 16px;
+gap: 8px;
+}
+
+.img-card:hover .img-overlay { opacity: 1; }
+
+.action-btn {
+width: 36px; height: 36px;
+background: rgba(255,255,255,0.15);
+border: 1px solid rgba(255,255,255,0.2);
+border-radius: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 16px;
+transition: all 0.2s;
+color: #fff;
+text-decoration: none;
+}
+
+.action-btn:hover { background: var(–blue-bright); }
+
+.img-info {
+padding: 14px 16px;
+}
+
+.img-name {
+font-size: 13px;
+font-weight: 600;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+margin-bottom: 4px;
+}
+
+.img-meta {
+font-size: 11px;
+color: var(–gray);
+display: flex;
+justify-content: space-between;
+}
+
+.img-size-badge {
+background: rgba(14,165,233,0.1);
+border: 1px solid var(–border);
+border-radius: 6px;
+padding: 2px 8px;
+font-size: 10px;
+color: var(–blue-glow);
+}
+
+/* DELETE BTN */
+.delete-card-btn {
+position: absolute;
+top: 10px;
+left: 10px;
+width: 30px; height: 30px;
+background: rgba(239,68,68,0.85);
+border: none;
+border-radius: 8px;
+color: #fff;
+font-size: 14px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+transition: opacity 0.2s;
+z-index: 5;
+}
+
+.img-card:hover .delete-card-btn { opacity: 1; }
+
+/* EMPTY STATE */
+.empty-state {
+text-align: center;
+padding: 80px 20px;
+color: var(–gray);
+display: none;
+}
+
+.empty-state .empty-icon { font-size: 60px; margin-bottom: 20px; opacity: 0.4; }
+.empty-state p { font-size: 16px; }
+
+/* LIGHTBOX */
+.lightbox {
+position: fixed;
+inset: 0;
+background: rgba(5, 12, 25, 0.97);
+z-index: 1000;
+display: none;
+align-items: center;
+justify-content: center;
+padding: 20px;
+backdrop-filter: blur(10px);
+}
+
+.lightbox.open { display: flex; animation: fadeIn 0.2s ease; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.lb-inner {
+position: relative;
+max-width: 90vw;
+max-height: 90vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 16px;
+}
+
+.lb-img {
+max-width: 100%;
+max-height: 75vh;
+object-fit: contain;
+border-radius: 16px;
+box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px var(–border);
+animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.lb-caption {
+font-size: 15px;
+color: var(–gray);
+text-align: center;
+}
+
+.lb-close {
+position: fixed;
+top: 20px;
+left: 20px;
+width: 44px; height: 44px;
+background: rgba(255,255,255,0.1);
+border: 1px solid rgba(255,255,255,0.2);
+border-radius: 12px;
+color: #fff;
+font-size: 20px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background 0.2s;
+}
+
+.lb-close:hover { background: rgba(239,68,68,0.5); }
+
+.lb-nav {
+position: fixed;
+top: 50%;
+transform: translateY(-50%);
+width: 50px; height: 50px;
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.15);
+border-radius: 14px;
+color: #fff;
+font-size: 22px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
+}
+
+.lb-nav:hover { background: rgba(14,165,233,0.3); }
+.lb-prev { right: 20px; }
+.lb-next { left: 20px; }
+
+/* DOWNLOAD ALL BTN */
+.download-all-btn {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+background: rgba(245,158,11,0.1);
+border: 1px solid rgba(245,158,11,0.3);
+border-radius: 12px;
+padding: 12px 20px;
+color: var(–gold);
+font-family: ‘Cairo’, sans-serif;
+font-size: 13px;
+cursor: pointer;
+transition: all 0.3s;
+}
+
+.download-all-btn:hover { background: rgba(245,158,11,0.2); }
+
+/* TOAST */
+.toast {
+position: fixed;
+bottom: 30px;
+right: 30px;
+background: linear-gradient(135deg, var(–blue-mid), rgba(14,165,233,0.3));
+border: 1px solid var(–border);
+border-radius: 14px;
+padding: 14px 24px;
+font-size: 14px;
+color: var(–white);
+z-index: 2000;
+transform: translateY(100px);
+opacity: 0;
+transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+backdrop-filter: blur(10px);
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* PROGRESS BAR */
+.progress-bar {
+position: fixed;
+top: 0;
+right: 0;
+height: 3px;
+background: linear-gradient(90deg, var(–cyan), var(–blue-bright));
+transition: width 0.3s;
+z-index: 9999;
+width: 0%;
+box-shadow: 0 0 10px var(–cyan);
+}
+
+@media (max-width: 600px) {
+header { padding: 16px 20px; }
+.hero { padding: 50px 20px 30px; }
+.gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<h2>📊 جدول احترافي مع ترقيم</h2>
+<div class="progress-bar" id="progressBar"></div>
 
-<div>
-    <button onclick="addColumn()">➕ عمود</button>
-    <button onclick="deleteColumn()">➖ عمود</button>
-    <br><br>
-    <button onclick="downloadJSON()">💾 تحميل</button>
-    <button onclick="document.getElementById('fileInput').click()">📂 استرجاع</button>
-    <button onclick="window.print()">🖨️ طباعة</button>
-    <button onclick="clearAllData()">🗑️ حذف البيانات</button>
+<header>
+  <div class="logo-area">
+    <div class="logo-icon">🏊</div>
+    <div class="logo-text">
+      <h1>مؤسسة الغدير</h1>
+      <p>للتجهيزات والتوريدات</p>
+    </div>
+  </div>
+  <div class="header-badge">
+    <span class="pulse-dot"></span>
+    معرض معدات برك السباحة
+  </div>
+</header>
+
+<section class="hero">
+  <span class="hero-tag">📸 معرض الصور الاحترافي</span>
+  <h2>ارفع صور معداتك<br>وشاركها بسهولة</h2>
+  <p>ارفع صور معدات برك السباحة وعرّضها بشكل احترافي — يدعم رفع ملفات متعددة دفعة واحدة</p>
+</section>
+
+<div class="upload-zone">
+  <div class="drop-area" id="dropArea">
+    <span class="drop-icon">💧</span>
+    <h3>اسحب الصور وأفلتها هنا</h3>
+    <p>أو اضغط لاختيار الصور من جهازك<br><small style="color:#64748b">JPG, PNG, WEBP, GIF — بدون حد للعدد</small></p>
+    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+      ⬆️ اختر صور
+    </button>
+    <input type="file" id="fileInput" accept="image/*" multiple>
+  </div>
 </div>
 
-<input type="file" id="fileInput" accept=".json" style="display:none" onchange="uploadJSON(event)">
+<div class="stats-bar" id="statsBar" style="display:none">
+  <div class="stat-item">
+    <span class="stat-num" id="totalCount">0</span>
+    <span class="stat-label">إجمالي الصور</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" id="totalSize">0</span>
+    <span class="stat-label">الحجم الكلي</span>
+  </div>
+</div>
 
-<table id="myTable"></table>
+<div class="controls" id="controls" style="display:none">
+  <input type="text" class="search-box" id="searchBox" placeholder="🔍 ابحث عن صورة..." oninput="filterGallery()">
+  <select class="sort-select" id="sortSelect" onchange="sortGallery()">
+    <option value="newest">الأحدث أولاً</option>
+    <option value="oldest">الأقدم أولاً</option>
+    <option value="name">الاسم أبجدياً</option>
+    <option value="size">الحجم</option>
+  </select>
+  <div class="view-toggle">
+    <button class="view-btn active" id="gridBtn" onclick="setView('grid')" title="شبكة">⊞</button>
+    <button class="view-btn" id="listBtn" onclick="setView('list')" title="قائمة">≡</button>
+  </div>
+  <button class="download-all-btn" onclick="downloadAll()">⬇️ تحميل الكل</button>
+  <button class="clear-btn" id="clearBtn" onclick="clearAll()">🗑️ مسح الكل</button>
+</div>
+
+<div class="gallery-container">
+  <div class="gallery-grid" id="gallery"></div>
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🏊‍♂️</div>
+    <p>لا توجد صور بعد — ارفع صورك الأولى!</p>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="navigate(1)">›</button>
+  <button class="lb-nav lb-next" onclick="navigate(-1)">‹</button>
+  <div class="lb-inner">
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <span id="toastIcon">✅</span>
+  <span id="toastMsg">تم!</span>
+</div>
 
 <script>
+  let images = [];
+  let currentView = 'grid';
+  let currentIndex = 0;
 
-// إنشاء الهيدر الأساسي
-function createHeader() {
-    return `
-    <tr>
-        <th>#</th>
-        <th>إجراءات</th>
-        <th contenteditable="true">الصنف</th>
-        <th contenteditable="true">العدد</th>
-        <th contenteditable="true">اللون</th>
-        <th contenteditable="true">ملاحظات</th>
-    </tr>`;
-}
+  const gallery = document.getElementById('gallery');
+  const dropArea = document.getElementById('dropArea');
+  const fileInput = document.getElementById('fileInput');
 
-// تحديث الترقيم
-function updateIndex() {
-    let table = document.getElementById("myTable");
-    for (let i = 1; i < table.rows.length; i++) {
-        table.rows[i].cells[0].innerText = i;
-    }
-}
+  // DRAG & DROP
+  ['dragenter','dragover'].forEach(e => dropArea.addEventListener(e, ev => {
+    ev.preventDefault();
+    dropArea.classList.add('drag-over');
+  }));
+  ['dragleave','drop'].forEach(e => dropArea.addEventListener(e, ev => {
+    ev.preventDefault();
+    dropArea.classList.remove('drag-over');
+  }));
+  dropArea.addEventListener('drop', ev => {
+    const files = Array.from(ev.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    if (files.length) processFiles(files);
+  });
+  fileInput.addEventListener('change', () => processFiles(Array.from(fileInput.files)));
 
-// أزرار الصف
-function addRowButtons(row) {
-    row.cells[1].innerHTML = `
-        <button onclick="addRowBelow(this)">➕</button>
-        <button onclick="deleteThisRow(this)">❌</button>
-    `;
-}
+  function processFiles(files) {
+    if (!files.length) return;
+    let loaded = 0;
+    const total = files.length;
+    showProgress(0);
 
-// إضافة صف
-function addRowBelow(btn) {
-    let row = btn.parentElement.parentElement;
-    let table = document.getElementById("myTable");
-    let newRow = table.insertRow(row.rowIndex + 1);
-
-    for (let i = 0; i < table.rows[0].cells.length; i++) {
-        let cell = newRow.insertCell();
-        if (i >= 2) cell.contentEditable = true;
-    }
-
-    addRowButtons(newRow);
-    updateIndex();
-    autoSave();
-}
-
-// حذف صف
-function deleteThisRow(btn) {
-    let table = document.getElementById("myTable");
-    if (table.rows.length > 2) {
-        let row = btn.parentElement.parentElement;
-        table.deleteRow(row.rowIndex);
-        updateIndex();
-        autoSave();
-    }
-}
-
-// أعمدة
-function addColumn() {
-    let table = document.getElementById("myTable");
-    for (let i = 0; i < table.rows.length; i++) {
-        let cell = table.rows[i].insertCell();
-        cell.contentEditable = true;
-        if (i === 0) cell.innerText = "عمود جديد";
-    }
-}
-
-function deleteColumn() {
-    let table = document.getElementById("myTable");
-    if (table.rows[0].cells.length > 3) {
-        for (let i = 0; i < table.rows.length; i++) {
-            table.rows[i].deleteCell(-1);
-        }
-    }
-}
-
-// استخراج البيانات (بدون الرقم والإجراءات)
-function getTableData() {
-    let table = document.getElementById("myTable");
-    let data = [];
-
-    for (let i = 0; i < table.rows.length; i++) {
-        let row = [];
-        for (let j = 2; j < table.rows[i].cells.length; j++) {
-            row.push(table.rows[i].cells[j].innerText);
-        }
-        data.push(row);
-    }
-    return data;
-}
-
-// بناء الجدول (✔️ الإصلاح هنا)
-function buildTable(data) {
-    let table = document.getElementById("myTable");
-
-    // إعادة بناء الهيدر دائماً
-    table.innerHTML = createHeader();
-
-    data.forEach((rowData, i) => {
-        let row = table.insertRow();
-
-        row.insertCell(); // رقم
-        row.insertCell(); // إجراءات
-
-        rowData.forEach((cellData) => {
-            let cell = row.insertCell();
-            cell.contentEditable = true;
-            cell.innerText = cellData;
+    files.forEach((file, idx) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        images.push({
+          id: Date.now() + idx,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          src: e.target.result,
+          addedAt: new Date()
         });
-
-        addRowButtons(row);
-    });
-
-    updateIndex();
-}
-
-// تحميل ملف
-function downloadJSON() {
-    let data = getTableData();
-    let blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "table-data.json";
-    a.click();
-}
-
-// استرجاع
-function uploadJSON(e) {
-    let file = e.target.files[0];
-    let reader = new FileReader();
-    reader.onload = function(e) {
-        buildTable(JSON.parse(e.target.result));
-        autoSave();
-    };
-    reader.readAsText(file);
-}
-
-// حفظ
-function autoSave() {
-    localStorage.setItem("tableData", JSON.stringify(getTableData()));
-}
-
-function autoLoad() {
-    let data = JSON.parse(localStorage.getItem("tableData"));
-    if (data) {
-        buildTable(data);
-    } else {
-        // أول تشغيل
-        let table = document.getElementById("myTable");
-        table.innerHTML = createHeader();
-
-        let row = table.insertRow();
-        row.insertCell();
-        row.insertCell();
-
-        for (let i = 0; i < 4; i++) {
-            let cell = row.insertCell();
-            cell.contentEditable = true;
+        loaded++;
+        showProgress(Math.round((loaded / total) * 100));
+        if (loaded === total) {
+          renderGallery();
+          updateStats();
+          showToast(`✅ تم رفع ${total} صورة بنجاح!`);
+          setTimeout(() => showProgress(0, true), 500);
+          fileInput.value = '';
         }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
-        addRowButtons(row);
-        updateIndex();
+  function renderGallery(list) {
+    const items = list || images;
+    gallery.innerHTML = '';
+
+    if (items.length === 0) {
+      document.getElementById('emptyState').style.display = 'block';
+      document.getElementById('statsBar').style.display = 'none';
+      document.getElementById('controls').style.display = 'none';
+      document.getElementById('clearBtn').style.display = 'none';
+      return;
     }
-}
 
-// حذف
-function clearAllData() {
-    localStorage.removeItem("tableData");
-    location.reload();
-}
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('statsBar').style.display = 'flex';
+    document.getElementById('controls').style.display = 'flex';
+    document.getElementById('clearBtn').style.display = images.length > 0 ? 'block' : 'none';
 
-// حفظ تلقائي
-let t;
-document.addEventListener("input", () => {
-    clearTimeout(t);
-    t = setTimeout(autoSave, 800);
-});
+    items.forEach((img, idx) => {
+      const card = document.createElement('div');
+      card.className = 'img-card';
+      card.style.animationDelay = (idx * 0.05) + 's';
+      card.innerHTML = `
+        <div class="thumb-wrap">
+          <img src="${img.src}" alt="${img.name}" loading="lazy" onclick="openLightbox(${images.indexOf(img)})">
+          <div class="img-overlay">
+            <a href="${img.src}" download="${img.name}" class="action-btn" title="تحميل" onclick="event.stopPropagation()">⬇️</a>
+            <div class="action-btn" title="عرض" onclick="openLightbox(${images.indexOf(img)})">🔍</div>
+          </div>
+        </div>
+        <button class="delete-card-btn" onclick="deleteImage(${img.id})" title="حذف">✕</button>
+        <div class="img-info">
+          <div class="img-name" title="${img.name}">${img.name}</div>
+          <div class="img-meta">
+            <span>${img.addedAt.toLocaleDateString('ar-JO')}</span>
+            <span class="img-size-badge">${formatSize(img.size)}</span>
+          </div>
+        </div>`;
+      gallery.appendChild(card);
+    });
+  }
 
-// تشغيل
-window.onload = function() {
-    autoLoad();
-};
+  function updateStats() {
+    document.getElementById('totalCount').textContent = images.length;
+    const total = images.reduce((s, i) => s + i.size, 0);
+    document.getElementById('totalSize').textContent = formatSize(total);
+  }
+
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  function deleteImage(id) {
+    images = images.filter(i => i.id !== id);
+    renderGallery();
+    updateStats();
+    showToast('🗑️ تم حذف الصورة');
+  }
+
+  function clearAll() {
+    if (!confirm('هل تريد مسح جميع الصور؟')) return;
+    images = [];
+    renderGallery();
+    updateStats();
+    showToast('🗑️ تم مسح جميع الصور');
+  }
+
+  function filterGallery() {
+    const q = document.getElementById('searchBox').value.toLowerCase();
+    const filtered = q ? images.filter(i => i.name.toLowerCase().includes(q)) : images;
+    renderGallery(filtered);
+  }
+
+  function sortGallery() {
+    const v = document.getElementById('sortSelect').value;
+    if (v === 'newest') images.sort((a, b) => b.addedAt - a.addedAt);
+    else if (v === 'oldest') images.sort((a, b) => a.addedAt - b.addedAt);
+    else if (v === 'name') images.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+    else if (v === 'size') images.sort((a, b) => b.size - a.size);
+    filterGallery();
+  }
+
+  function setView(v) {
+    currentView = v;
+    gallery.classList.toggle('list-view', v === 'list');
+    document.getElementById('gridBtn').classList.toggle('active', v === 'grid');
+    document.getElementById('listBtn').classList.toggle('active', v === 'list');
+  }
+
+  // LIGHTBOX
+  function openLightbox(idx) {
+    currentIndex = idx;
+    const img = images[idx];
+    document.getElementById('lbImg').src = img.src;
+    document.getElementById('lbCaption').textContent = img.name + ' — ' + formatSize(img.size);
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lb-close')) return;
+    if (e && e.target.classList.contains('lb-nav')) return;
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function navigate(dir) {
+    currentIndex = (currentIndex + dir + images.length) % images.length;
+    const img = images[currentIndex];
+    const lbImg = document.getElementById('lbImg');
+    lbImg.style.opacity = '0';
+    setTimeout(() => {
+      lbImg.src = img.src;
+      document.getElementById('lbCaption').textContent = img.name + ' — ' + formatSize(img.size);
+      lbImg.style.opacity = '1';
+    }, 150);
+    lbImg.style.transition = 'opacity 0.15s';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox({target: document.getElementById('lightbox')});
+    if (e.key === 'ArrowRight') navigate(-1);
+    if (e.key === 'ArrowLeft') navigate(1);
+  });
+
+  // DOWNLOAD ALL
+  function downloadAll() {
+    if (!images.length) return showToast('⚠️ لا توجد صور للتحميل');
+    images.forEach((img, i) => {
+      setTimeout(() => {
+        const a = document.createElement('a');
+        a.href = img.src;
+        a.download = img.name;
+        a.click();
+      }, i * 300);
+    });
+    showToast(`⬇️ جاري تحميل ${images.length} صورة...`);
+  }
+
+  // TOAST
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // PROGRESS
+  function showProgress(pct, hide) {
+    const bar = document.getElementById('progressBar');
+    if (hide) { bar.style.width = '0%'; return; }
+    bar.style.width = pct + '%';
+  }
+
+  // INIT
+  renderGallery();
 </script>
 
 </body>
